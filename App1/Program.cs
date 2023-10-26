@@ -9,41 +9,46 @@ namespace App1
     internal class Program
     {
         static void Main(string[] args)
-        {
-            
+        {            
             Console.WriteLine("The application displays how many prime numbers there are in the given range (e.g. 0 - 100).");
-            Console.WriteLine("Please enter the upper limit of the range. It should be any natural number bigger then 1:");            
+            Console.WriteLine("Please, enter the upper limit of the range. It should be any natural number bigger then 1:");            
             int upperLimit = int.Parse(Console.ReadLine());
             Console.WriteLine("\r");            
 
-            bool isPrimeNumber;
+            Program pr = new Program();
             int primeNumberCounter = 0;
             int counter = 1;
+            
+            /* 
+             * Z definicji, liczba piersza jest większa od 1. 
+             * Dlatego sprawdzenie czy dana liczba jest piersza, zaczynam od 2.
+             * Sprawdzenie kończę na liczbie wpisanej przez usera: upperLimit
+             */            
             for (int naturalNumber = 2; naturalNumber <= upperLimit; naturalNumber++)
-            {
-                isPrimeNumber = true;                
-                for (int divider = 2; divider <= (naturalNumber - 1); divider++)
-                {                    
-                    if ((naturalNumber % divider) == 0)
-                    {
-                        isPrimeNumber = false;
-                    }
-                    if (!isPrimeNumber)
-                    {
-                        break;
-                    }
-                }
-                if (isPrimeNumber)
+            {                
+                if (pr.IsPrimeNumber(naturalNumber))
                 {
                     Console.WriteLine($"Prime number ({counter}): {naturalNumber}");
-                    primeNumberCounter = primeNumberCounter + 1;
-                    counter = counter  + 1;
+                    primeNumberCounter++;
+                    counter++;
                 }
-            }
-            
+            }            
             Console.WriteLine("\r");
             Console.WriteLine($"Number of prime numbers in range 0 - {upperLimit} : {primeNumberCounter}");            
-
         }
+
+        bool IsPrimeNumber(int numberToCheck)
+        {
+            /* 
+             * Nie ma potrzeby użycia Floor: (int) Math.Floor(Math.Sqrt(numberToCheck))
+             * Rzutowanie na int zaokrągla pierwiastek z liczby w dół.
+             */
+            int maxDivider = (int) Math.Sqrt(numberToCheck);
+            for (int i = 2; i <= maxDivider; i++)
+                if (numberToCheck % i == 0) return false;
+            return true;
+        }
+
+
     }
 }

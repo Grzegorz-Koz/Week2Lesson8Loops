@@ -22,18 +22,23 @@ namespace App10
         
         public bool IsPrimeNumber(int numberToCheck)
         {
-            int maxDivider = (int) Math.Floor(Math.Sqrt(numberToCheck));
+            int maxDivider = (int) Math.Sqrt(numberToCheck);
             for (int i = 2; i <= maxDivider; i++)
                 if (numberToCheck % i == 0) return false;
             return true;
         }
 
+        /*
+         * Funkcja zwraca liczbę: 
+         * 0 - jeśli "divider" nie jest dzielnikiem liczby "numberToDivide"
+         * k - jeśli "divider" jest dzielnikiem liczby "numberToDivide", gdzie numberToDivide = k * divider * resultOfDividing
+         * gdzie resultOfDividing nie jest podzielny przez divider.
+         */
         public int GetNumberOfDividings(int numberToDivide, int divider, out int resultOfDividing)
         {
             int numberOfDividings = 0;
             resultOfDividing = numberToDivide;
-            bool tryToDivide = true;
-            
+            bool tryToDivide = true;            
             do
             {
                 if (resultOfDividing % divider == 0)
